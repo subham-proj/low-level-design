@@ -26,7 +26,7 @@ public class Level {
         }
     }
     
-    public boolean parkVehicle(Vehicle vehicle) {
+    public synchronized boolean parkVehicle(Vehicle vehicle) {
         for (ParkingSpot parkingSpot : parkingSpots) {
             if (parkingSpot.isAvailable() && vehicle.getType() == parkingSpot.getVehicleType()) {
                 parkingSpot.parkVehicle(vehicle);
@@ -36,7 +36,7 @@ public class Level {
         return false;
     }
     
-    public boolean unparkVehicle(Vehicle vehicle) {
+    public synchronized boolean unparkVehicle(Vehicle vehicle) {
         for(ParkingSpot parkingSpot: parkingSpots) {
             if(vehicle.getType() == parkingSpot.getVehicleType() && parkingSpot.getParkedVehicle() != null) {
                 parkingSpot.unparkVehicle();

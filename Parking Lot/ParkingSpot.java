@@ -11,17 +11,17 @@ public class ParkingSpot {
         this.vehicleType = vehicleType;
     }
     
-    public boolean isAvailable() {
+    public synchronized boolean isAvailable() {
         return parkedVehicle == null;
     }
     
-    public void parkVehicle(Vehicle vehicle) {
+    public synchronized void parkVehicle(Vehicle vehicle) {
         if (isAvailable() && vehicle.getType() == vehicleType) {
             parkedVehicle = vehicle;
         }
     }
     
-    public void unparkVehicle() {
+    public synchronized void unparkVehicle() {
         parkedVehicle = null;
     }
     
