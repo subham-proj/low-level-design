@@ -13,6 +13,9 @@ public class VendingMachine {
     private final VendingMachineState idleState;
     private final VendingMachineState readyState;
     private final VendingMachineState dispenseState;
+    private final VendingMachineState returnChangeState;
+    private VendingMachineState currentState;
+    private double totalPayment;
     
     private VendingMachine() {
         products = new ArrayList<>();
@@ -20,6 +23,9 @@ public class VendingMachine {
         idleState = new IdleState(this);
         readyState = new ReadyState(this);
         dispenseState = new DispenseState(this);
+        returnChangeState = new ReturnChangeState(this);
+        currentState = idleState;
+        totalPayment = 0.0;
     }
     
     ;
@@ -39,12 +45,28 @@ public class VendingMachine {
         return products;
     }
     
-    public void setState(VendingMachineState state) {
-        this.state = state;
+    public void selectProduct(Product product) {
+        currentState.selectProduct(product);
     }
     
-    public VendingMachineState getState() {
-        return state;
+    public void insertCoin(Coin coin) {
+        currentState.insertCoin(coin);
+    }
+    
+    public void insertNote(Note note) {
+        currentState.insertNote(note);
+    }
+    
+    public void dispenseProduct() {
+        currentState.dispenseProduct();
+    }
+    
+    public void returnChange() {
+        currentState.returnChange();
+    }
+    
+    void setState(VendingMachineState state) {
+        currentState = state;
     }
     
     public VendingMachineState getIdleState() {
@@ -59,11 +81,35 @@ public class VendingMachine {
         return dispenseState;
     }
     
+    public VendingMachineState getReturnChangeState() {
+        return returnChangeState;
+    }
+    
     public Product getSelectedProduct() {
         return selectedProduct;
     }
     
+    public void resetSelectedProduct() {
+        selectedProduct = null;
+    }
+    
     public void setSelectedProduct(Product selectedProduct) {
         this.selectedProduct = selectedProduct;
+    }
+    
+    void addCoin(Coin coin) {
+        totalPayment += coin.getValue();
+    }
+    
+    void addNote(Note note) {
+        totalPayment += note.getValue();
+    }
+    
+    public double getTotalPayment() {
+        return totalPayment;
+    }
+    
+    public void resetPayment() {
+        totalPayment = 0.0;
     }
 }

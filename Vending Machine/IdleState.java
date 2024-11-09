@@ -1,6 +1,6 @@
 public class IdleState implements VendingMachineState {
     
-    private VendingMachine vendingMachine;
+    private final VendingMachine vendingMachine;
     
     public IdleState(VendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
@@ -17,22 +17,22 @@ public class IdleState implements VendingMachineState {
     }
     
     @Override
-    public void insertCoins(Coin coin) {
-    
+    public void insertCoin(Coin coin) {
+        System.out.println("Please select a product first");
     }
     
     @Override
-    public void insertNotes(Note note) {
-    
+    public void insertNote(Note note) {
+        System.out.println("Please select a product first");
     }
     
     @Override
     public void dispenseProduct() {
-    
+        System.out.println("Please select a product first and make payment");
     }
     
     @Override
     public void returnChange() {
-    
+        System.out.println("No change to return");
     }
 }

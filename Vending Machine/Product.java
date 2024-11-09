@@ -21,6 +21,6 @@ public class Product {
     }
     
     public void updateQuantity(int val) {
-        quantity += val;
+        quantity = val;
     }
 }

@@ -6,26 +6,31 @@ public class DispenseState implements VendingMachineState {
     }
     @Override
     public void selectProduct(Product product) {
-    
+        System.out.println("Product already selected. Please collect the dispensed product.");
     }
     
     @Override
-    public void insertCoins(Coin coin) {
-    
+    public void insertCoin(Coin coin) {
+        System.out.println("Payment already made");
     }
     
     @Override
-    public void insertNotes(Note note) {
-    
+    public void insertNote(Note note) {
+        System.out.println("Payment already made");
     }
     
     @Override
     public void dispenseProduct() {
-    
+        vendingMachine.setState(vendingMachine.getReadyState());
+        
+        Product product = vendingMachine.getSelectedProduct();
+        vendingMachine.inventory.productDetails(product).updateQuantity(product.getQuantity() - 1);
+        System.out.println("Product dispensed");
+        vendingMachine.setState(vendingMachine.getReturnChangeState());
     }
     
     @Override
     public void returnChange() {
-    
+        System.out.println("Please collect the dispensed product first");
     }
 }
